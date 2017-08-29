@@ -28,12 +28,12 @@
 		var bar = chart.selectAll("g")
 		    .data(data)
 		  	.enter().append("g")
-		    .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+		    .attr("transform", function(d, i) { return "translate(0," + i * (barHeight + 20) + ")"; });
 
 		bar.append("rect")
 			.attr("height", barHeight - 1)
 			.attr("width", 0)
-    		.transition().duration(500)
+    		.transition().duration(1000)
 		    .attr("width", x);
 		    
 		bar.on("mouseover", function(d){
