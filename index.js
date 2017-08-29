@@ -36,12 +36,31 @@
     		.transition().duration(500)
 		    .attr("width", x);
 		    
+		bar.on("mouseover", function(d){
+				return tooltip.style("visibility", "visible").text(d);
+			})
+			.on("mousemove", function(d){
+				return tooltip.style("top", (event.pageY-10)+"px").style("left",(event.pageX+10)+"px").text(d);
+			})
+			.on("mouseout", function(d){
+				return tooltip.style("visibility", "hidden");
+			});
+
+		    
 
 		bar.append("text")
 		    .attr("x", function(d) { return x(d) - 3; })
 		    .attr("y", barHeight / 2)
 		    .attr("dy", ".35em")
 		    .text(function(d) { return d; });
+
+		var tooltip = d3.select("body")
+			.append("div")
+			.style("position", "absolute")
+			.style("font-family", "'Open Sans', sans-serif")
+			.style("font-size", "12px")
+			.style("z-index", "10")
+			.style("visibility", "hidden");
 	}
 
 	drawGraph();
