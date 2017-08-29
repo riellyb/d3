@@ -5,20 +5,21 @@
 	
 <style>
 
-.chart div {
-  font: 10px sans-serif;
-  background-color: steelblue;
-  text-align: right;
-  padding: 3px;
-  margin: 1px;
-  color: white;
-}
+	.chart rect {
+	  fill: steelblue;
+	}
+
+	.chart text {
+	  fill: white;
+	  font: 10px sans-serif;
+	  text-anchor: end;
+	}
 
 </style>
 </head>
 <body>
-<div class="chart"></div>
-<script src="https://d3js.org/d3.v4.min.js"></script>
+	<svg class="chart"></svg>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<script src="index.js"></script> 
 </body>
 </html>
