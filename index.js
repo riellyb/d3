@@ -1,27 +1,50 @@
-var data = [4, 8, 15, 16, 23, 42];
+(function () {
+	
+	var data = [4, 8, 15, 16, 23, 42];
 
-var width = 420,
-    barHeight = 20;
+	var chart = d3.select(".chart")
+		.append("div")
+		.classed("svg-container", true) //container class to make it responsive
+		.append("svg")
+		//responsive SVG needs these 2 attributes and no width and height attr
+		.attr("preserveAspectRatio", "xMinYMin meet")
+		.attr("viewBox", "0 0 600 400")
+		//class to make it responsive
+		.classed("svg-content-responsive", true); 
+	function drawGraph() {
+		
 
-var x = d3.scaleLinear()
-    .domain([0, d3.max(data)])
-    .range([0, width]);
+		var width = window.innerWidth-200,
+		    barHeight = 50;
 
-var chart = d3.select(".chart")
-    .attr("width", width)
-    .attr("height", barHeight * data.length);
+		var x = d3.scaleLinear()
+		    .domain([0, d3.max(data)])
+		    .range([0, width]);
 
-var bar = chart.selectAll("g")
-    .data(data)
-  .enter().append("g")
-    .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+		
+		chart.attr("width", width)
+		    .attr("height", barHeight * data.length);
 
-bar.append("rect")
-    .attr("width", x)
-    .attr("height", barHeight - 1);
+		var bar = chart.selectAll("g")
+		    .data(data)
+		  	.enter().append("g")
+		    .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
 
-bar.append("text")
-    .attr("x", function(d) { return x(d) - 3; })
-    .attr("y", barHeight / 2)
-    .attr("dy", ".35em")
-    .text(function(d) { return d; });
+		bar.append("rect")
+			.attr("height", barHeight - 1)
+			.attr("width", 0)
+    		.transition().duration(500)
+		    .attr("width", x);
+		    
+
+		bar.append("text")
+		    .attr("x", function(d) { return x(d) - 3; })
+		    .attr("y", barHeight / 2)
+		    .attr("dy", ".35em")
+		    .text(function(d) { return d; });
+	}
+
+	drawGraph();
+	window.addEventListener("resize", drawGraph);
+
+})();
